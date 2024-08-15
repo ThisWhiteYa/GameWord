@@ -16,7 +16,12 @@
       crossorigin="anonymous"
     ></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
+    <script src="B1.js"></script>
+    <script src="B2.js"></script>
+    <script src="C1.js"></script>
+    <script src="C2.js"></script>
+    <script src="IELTS.js"></script>
+    <script src="TOEIC.js"></script>
     <style>
       .container {
         height: 100vh;
@@ -29,7 +34,7 @@
         display: none;
       }
       .card {
-        height: 380px;
+        height: fit-content;
       }
       .display-section {
         display: flex;
@@ -37,17 +42,40 @@
         height: 100%;
         justify-content: end;
       }
+      #check {
+        font-size: 1em;
+      }
     </style>
   </head>
   <body>
     <body>
       <div class="container">
-        <div class="card p-3">
+        <div class="btc-section mb-3">
+          <button onclick="B1('B1')" id="B1" class="btn btn-secondary">
+            B1
+          </button>
+          <button onclick="B2('B2')" id="B2" class="btn btn-secondary">
+            B2
+          </button>
+          <button onclick="C1('C1')" id="C1" class="btn btn-secondary">
+            C1
+          </button>
+          <button onclick="C2('C2')" id="C2" class="btn btn-secondary">
+            C2
+          </button>
+          <button onclick="IELTS('IELTS')" id="IELTS" class="btn btn-secondary">
+            IELTS
+          </button>
+          <button onclick="TOEIC('TOEIC')" id="TOEIC" class="btn btn-secondary">
+            TOEIC
+          </button>
+        </div>  
+        <div class="card p-4">
           <div class="score text-end">
             <button
               class="btn btn-secondary fw-bold"
               id="reset"
-              onclick="random()"
+              onclick="skip()"
             >
               skip
             </button>
@@ -58,8 +86,8 @@
               Top Score :
             </button>
           </div>
-          <div class="header text-center">
-            <h1 id="Level">Level</h1>
+          <div class="header text-center my-3">
+            <h1 id="Level">Please select you're level</h1>
           </div>
           <div
             class="game-section d-flex justify-content-center my-3"
@@ -67,9 +95,7 @@
             style="height: 50px"
           ></div>
           <div class="display-section">
-            <button onclick="random()" id="start" class="btn btn-danger">
-              Start
-            </button>
+           
             <div class="my-3">
               <span id="translate">meaning : </span
               ><span id="translated_area"></span>
@@ -87,7 +113,7 @@
                   disabled
                 />
               </div>
-              <div class="col-2">
+              <div class="col-2 col-ms-6">
                 <button
                   onclick="check()"
                   class="btn btn-primary w-100"
@@ -101,16 +127,20 @@
           </div>
         </div>
       </div>
-
-<script>
-  document.getElementById('answer').addEventListener('keypress', function (e) {
-    if (e.key === 'Enter') {
-      check()
-    }
-});
-</script>
+      <script src="translate.js"></script>
 
       <script>
+        document
+          .getElementById("answer")
+          .addEventListener("keypress", function (e) {
+            if (e.key === "Enter") {
+              check();
+            }
+          });
+      </script>
+
+      <script>
+        let level = ''
         let word = "";
         let point = document.cookie
           .split("; ")
@@ -131,52 +161,24 @@
         document.getElementById("pointShow").innerHTML = "Score : " + point;
         document.getElementById("topScore").innerHTML =
           "Top Score : " + topScore;
-        document.getElementById("Level").innerHTML = "level : B1";
 
-        const random = async () => {
-          document.getElementById("answer").removeAttribute("disabled");
-          document.getElementById("check").removeAttribute("disabled");
-
-          document.getElementById("start").style.display = "none";
-          document.getElementById("reset").style.display = "inline-block";
-          document.getElementById("topScore").innerHTML =
-            "Top Score : " + topScore;
-          document.getElementById("game-section").innerHTML = "";
-          document.getElementById("partOfSpeech").innerHTML =
-            "part of speech : ";
-
-          document.getElementById("translate").innerHTML = "meaning : ";
-          document.getElementById("hint").innerHTML = "Definition : ";
-          const data = await fetch("./Word.json").then((response) =>
-            response.json()
-          );
-          const num = Math.floor(Math.random() * data.B1.length);
-          word = data.B1[num][0].toLocaleUpperCase() + data.B1[num].slice(1);
-          const partOfSpeech = await fetch(
-            `https://api.dictionaryapi.dev/api/v2/entries/en/${word}`
-          ).then((response) => response.json());
-
-          console.log(word, "=", word.length);
-
-          submit_en2thai(word);
-          document.getElementById("hint").innerHTML +=
-            partOfSpeech[0].meanings[0].definitions[0].definition;
-          document.getElementById("partOfSpeech").innerHTML +=
-            partOfSpeech[0].meanings[0].partOfSpeech;
-          const hintNum = Math.floor(Math.random() * word.length);
-          const hint = word[hintNum];
-
-          for (let index = 0; index < word.length; index++) {
-            if (hintNum == index) {
-              document.getElementById(
-                "game-section"
-              ).innerHTML += `<span class='border-bottom border-primary ms-2 fs-1 text-center' style='width: 70px;'>${hint}</span>`;
-            } else {
-              document.getElementById("game-section").innerHTML +=
-                "<span class='border-bottom border-primary ms-2' style='width: 70px;'></span>";
+        const skip = () =>{
+          switch (level) {
+              case 'B1':
+                B1('B1')
+                break;
+              case 'C1':
+                C1('C1')
+                break;
+              case 'IELTS':
+                IELTS('IELTS')
+                break;
+              case 'TOEIC':
+                TOEIC('TOEIC')
+                break;
             }
-          }
-        };
+        }
+        
         const check = () => {
           console.log(answer.value);
           console.log("check :", word);
@@ -196,7 +198,20 @@
               document.cookie = `top_score=${topScore}`;
             }
             document.cookie = `current_score=${point}`;
-            random();
+            switch (level) {
+              case 'B1':
+                B1('B1')
+                break;
+              case 'C1':
+                C1('C1')
+                break;
+              case 'IELTS':
+                IELTS('IELTS')
+                break;
+              case 'TOEIC':
+                TOEIC('TOEIC')
+                break;
+            }
           } else {
             Swal.fire({
               icon: "error",
@@ -209,161 +224,22 @@
             answer.value = "";
             document.getElementById("pointShow").innerHTML = "Score : " + 0;
             document.cookie = `current_score=${point}`;
-            random();
+            switch (level) {
+              case 'B1':
+                B1()
+                break;
+              case 'C1':
+                C1()
+                break;
+              case 'IELTS':
+                IELTS()
+                break;
+              case 'TOEIC':
+                TOEIC()
+                break;
+            }
           }
         };
-      </script>
-
-      <script>
-        function translate(
-          sentences,
-          targetDiv,
-          from_lang = "th",
-          to_lang = "en"
-        ) {
-          sentences = sentences.replace(/\n/g, "<br>");
-          let endPoint = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${from_lang}&tl=${to_lang}&dt=t&ie=UTF-8&oe=UTF-8&q=${encodeURIComponent(
-            sentences
-          )}`;
-
-          var xhttp = new XMLHttpRequest();
-          xhttp.onreadystatechange = function () {
-            if (this.readyState == 4 && this.status == 200) {
-              var jsonText = JSON.parse(this.responseText);
-              text = jsonText[0][0][0];
-              text = text.replace(/<br>/g, "\n");
-              targetDiv.innerHTML = "&nbsp;" + text;
-            }
-          };
-          xhttp.open("GET", endPoint, true);
-          xhttp.send();
-        }
-
-        function submit_thai2en() {
-          console.log(input_area.value);
-          translate(input_area.value, translated_area);
-        }
-
-        function submit_en2thai(word) {
-          translate(
-            word,
-            translated_area,
-            (from_lang = "en"),
-            (to_lang = "th")
-          );
-        }
-
-        // The languages that Google Translate supports  ISO 639-1 codes
-        // See more https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes
-        /*
-var langs = {
-    //'auto': 'Automatic',
-    'af': 'Afrikaans',
-    'sq': 'Albanian',
-    'am': 'Amharic',
-    'ar': 'Arabic',
-    'hy': 'Armenian',
-    'az': 'Azerbaijani',
-    'eu': 'Basque',
-    'be': 'Belarusian',
-    'bn': 'Bengali',
-    'bs': 'Bosnian',
-    'bg': 'Bulgarian',
-    'ca': 'Catalan',
-    'ceb': 'Cebuano',
-    'ny': 'Chichewa',
-    'zh-cn': 'Chinese Simplified',
-    'zh-tw': 'Chinese Traditional',
-    'co': 'Corsican',
-    'hr': 'Croatian',
-    'cs': 'Czech',
-    'da': 'Danish',
-    'nl': 'Dutch',
-    'en': 'English',
-    'eo': 'Esperanto',
-    'et': 'Estonian',
-    'tl': 'Filipino',
-    'fi': 'Finnish',
-    'fr': 'French',
-    'fy': 'Frisian',
-    'gl': 'Galician',
-    'ka': 'Georgian',
-    'de': 'German',
-    'el': 'Greek',
-    'gu': 'Gujarati',
-    'ht': 'Haitian Creole',
-    'ha': 'Hausa',
-    'haw': 'Hawaiian',
-    'iw': 'Hebrew',
-    'hi': 'Hindi',
-    'hmn': 'Hmong',
-    'hu': 'Hungarian',
-    'is': 'Icelandic',
-    'ig': 'Igbo',
-    'id': 'Indonesian',
-    'ga': 'Irish',
-    'it': 'Italian',
-    'ja': 'Japanese',
-    'jw': 'Javanese',
-    'kn': 'Kannada',
-    'kk': 'Kazakh',
-    'km': 'Khmer',
-    'ko': 'Korean',
-    'ku': 'Kurdish (Kurmanji)',
-    'ky': 'Kyrgyz',
-    'lo': 'Lao',
-    'la': 'Latin',
-    'lv': 'Latvian',
-    'lt': 'Lithuanian',
-    'lb': 'Luxembourgish',
-    'mk': 'Macedonian',
-    'mg': 'Malagasy',
-    'ms': 'Malay',
-    'ml': 'Malayalam',
-    'mt': 'Maltese',
-    'mi': 'Maori',
-    'mr': 'Marathi',
-    'mn': 'Mongolian',
-    'my': 'Myanmar (Burmese)',
-    'ne': 'Nepali',
-    'no': 'Norwegian',
-    'ps': 'Pashto',
-    'fa': 'Persian',
-    'pl': 'Polish',
-    'pt': 'Portuguese',
-    'ma': 'Punjabi',
-    'ro': 'Romanian',
-    'ru': 'Russian',
-    'sm': 'Samoan',
-    'gd': 'Scots Gaelic',
-    'sr': 'Serbian',
-    'st': 'Sesotho',
-    'sn': 'Shona',
-    'sd': 'Sindhi',
-    'si': 'Sinhala',
-    'sk': 'Slovak',
-    'sl': 'Slovenian',
-    'so': 'Somali',
-    'es': 'Spanish',
-    'su': 'Sundanese',
-    'sw': 'Swahili',
-    'sv': 'Swedish',
-    'tg': 'Tajik',
-    'ta': 'Tamil',
-    'te': 'Telugu',
-    'th': 'Thai',
-    'tr': 'Turkish',
-    'uk': 'Ukrainian',
-    'ur': 'Urdu',
-    'uz': 'Uzbek',
-    'vi': 'Vietnamese',
-    'cy': 'Welsh',
-    'xh': 'Xhosa',
-    'yi': 'Yiddish',
-    'yo': 'Yoruba',
-    'zu': 'Zulu'
-};
-*/
       </script>
     </body>
   </body>
