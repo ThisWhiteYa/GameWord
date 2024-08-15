@@ -130,7 +130,6 @@
           ).then((response) => response.json());
 
           console.log(word, "=", word.length);
-          console.log(partOfSpeech);
 
           submit_en2thai(word);
           document.getElementById("hint").innerHTML +=
@@ -139,9 +138,7 @@
             partOfSpeech[0].meanings[0].partOfSpeech;
           const hintNum = Math.floor(Math.random() * word.length);
           const hint = word[hintNum];
-          console.log(word);
-          console.log(hint);
-          console.log(hintNum);
+
 
           for (let index = 0; index < word.length; index++) {
             if (hintNum == index) {
