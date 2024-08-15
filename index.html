@@ -365,6 +365,45 @@
                 TOEIC("TOEIC");
                 break;
             }
+          } else {
+            Swal.fire({
+              title: "จะเปลี่ยนคำหรอ ?",
+              icon: "warning",
+              showCancelButton: true,
+              confirmButtonColor: "#3085d6",
+              cancelButtonColor: "#d33",
+              confirmButtonText: "ช่ายยย",
+              cancelButtonText: "ไม่",
+            }).then((result) => {
+              if (result.isConfirmed) {
+                Swal.fire({
+                  title: "เปลี่ยนเรียบร้อย ลุยต่ออ!",
+                  icon: "success",
+                  timer: 1500,
+                  showConfirmButton: false,
+                });
+                answer.value = "";
+                switch (level) {
+                  case "B1":
+                    B1("B1");
+                    break;
+                  case "B2":
+                    B2("B2");
+                    break;
+                  case "C1":
+                    C1("C1");
+                  case "C2":
+                    C2("C2");
+                    break;
+                  case "IELTS":
+                    IELTS("IELTS");
+                    break;
+                  case "TOEIC":
+                    TOEIC("TOEIC");
+                    break;
+                }
+              }
+            });
           }
         };
 
