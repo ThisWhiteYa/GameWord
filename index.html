@@ -16,7 +16,9 @@
       document.getElementById("pointShow").innerHTML = 0;
 
       const random = async () => {
-        document.getElementById("game").innerHTML = ''
+        document.getElementById("game").innerHTML = "";
+        document.getElementById("partOfSpeech").innerHTML = "";
+
         document.getElementById("translate").innerHTML = "meaning :";
         document.getElementById("hint").innerHTML = "Definition : ";
         const data = await fetch("./Word.json").then((response) =>
@@ -24,22 +26,25 @@
         );
         const num = Math.floor(Math.random() * data.TOEIC.length);
         word = data.TOEIC[num].word;
-        const partOfSpeech = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`).then((response) =>
-          response.json()
-        );
-        
+        const partOfSpeech = await fetch(
+          `https://api.dictionaryapi.dev/api/v2/entries/en/${word}`
+        ).then((response) => response.json());
+
         console.log(word, "=", word.length);
         console.log(partOfSpeech);
-        
+
         submit_en2thai(word);
-        document.getElementById("hint").innerHTML += partOfSpeech[0].meanings[0].definitions[0].definition;
-        document.getElementById("partOfSpeech").innerHTML += partOfSpeech[0].meanings[0].partOfSpeech;
+        document.getElementById("hint").innerHTML +=
+          partOfSpeech[0].meanings[0].definitions[0].definition;
+        document.getElementById("partOfSpeech").innerHTML +=
+          partOfSpeech[0].meanings[0].partOfSpeech;
         // console.log(partOfSpeech[0].meanings[0].partOfSpeech);
-        
+
         for (let index = 0; index < word.length; index++) {
           document.getElementById("game").innerHTML += " _";
         }
-        document.getElementById("game").innerHTML += ' (' + data.TOEIC[num].word.length+')';
+        document.getElementById("game").innerHTML +=
+          " (" + data.TOEIC[num].word.length + ")";
         // console.log("B1 :", data.B1.length);
         // console.log("B2 :", data.B2.length);
         // console.log("C1 :", data.C1.length);
@@ -55,12 +60,12 @@
         if (answer.value.toLowerCase() == word.toLowerCase()) {
           point++;
           document.getElementById("pointShow").innerHTML = point;
-          answer.value = ''
+          answer.value = "";
           random();
         } else {
-            point = 0;
-            answer.value = ''
-            document.getElementById("pointShow").innerHTML = 0;
+          point = 0;
+          answer.value = "";
+          document.getElementById("pointShow").innerHTML = 0;
         }
       };
     </script>
