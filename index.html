@@ -84,6 +84,7 @@
                   id="answer"
                   class="form-control"
                   for="check"
+                  disabled
                 />
               </div>
               <div class="col-2">
@@ -91,6 +92,7 @@
                   onclick="check()"
                   class="btn btn-primary w-100"
                   id="check"
+                  disabled
                 >
                   check
                 </button>
@@ -132,6 +134,9 @@
         document.getElementById("Level").innerHTML = "level : B1";
 
         const random = async () => {
+          document.getElementById("answer").removeAttribute("disabled");
+          document.getElementById("check").removeAttribute("disabled");
+
           document.getElementById("start").style.display = "none";
           document.getElementById("reset").style.display = "inline-block";
           document.getElementById("topScore").innerHTML =
