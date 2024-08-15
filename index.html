@@ -102,9 +102,24 @@
 
       <script>
         let word = "";
-        let point = 0;
-        let topScore = 0;
-        document.getElementById("pointShow").innerHTML = "Score : " + 0;
+
+        let point = document.cookie
+          .split("; ")
+          .find((row) => row.startsWith("current_score="))
+          ?.split("=")[1];
+
+        if (!point) {
+          point = 0;
+        }
+        let topScore = document.cookie
+          .split("; ")
+          .find((row) => row.startsWith("top_score="))
+          ?.split("=")[1];
+
+        if (!topScore) {
+          topScore = 0;
+        }
+        document.getElementById("pointShow").innerHTML = "Score : " + point;
         document.getElementById("topScore").innerHTML =
           "Top Score : " + topScore;
         document.getElementById("Level").innerHTML = "level : B1";
@@ -139,7 +154,6 @@
           const hintNum = Math.floor(Math.random() * word.length);
           const hint = word[hintNum];
 
-
           for (let index = 0; index < word.length; index++) {
             if (hintNum == index) {
               document.getElementById(
@@ -167,7 +181,9 @@
             answer.value = "";
             if (point >= topScore) {
               topScore = point;
+              document.cookie = `top_score=${topScore}`;
             }
+            document.cookie = `current_score=${point}`;
             random();
           } else {
             Swal.fire({
@@ -180,6 +196,7 @@
             point = 0;
             answer.value = "";
             document.getElementById("pointShow").innerHTML = "Score : " + 0;
+            document.cookie = `current_score=${point}`;
             random();
           }
         };
