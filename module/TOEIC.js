@@ -21,7 +21,7 @@ const TOEIC = async (level_select) => {
     
     const num = Math.floor(Math.random() * data.length);
     // word = data[num].word[0].toLocaleUpperCase() + data[num].word.slice(1);
-  word = data[num].toLocaleUpperCase();
+  word = data[num].word.toLocaleUpperCase();
 
     
     const partOfSpeech = await fetch(
