@@ -2,6 +2,7 @@
 <html>
   <head> </head>
   <body>
+    <h1 id="Level">Level</h1>
     <button onclick="random()" id="start">Start</button>
     <span id="translate">meaning : </span><span id="translated_area"></span>
     <h1 id="pointShow">Score :</h1>
@@ -17,6 +18,7 @@
       let topScore = 0;
       document.getElementById("pointShow").innerHTML ="Score : "+ 0;
       document.getElementById("topScore").innerHTML = "Top Score :"+ topScore;
+      document.getElementById("Level").innerHTML = "level : B1";
 
       const start = document.getElementById("start").innerHTML
 
@@ -34,8 +36,8 @@
         const data = await fetch("./Word.json").then((response) =>
           response.json()
         );
-        const num = Math.floor(Math.random() * data.TOEIC.length);
-        word = data.TOEIC[num].word;
+        const num = Math.floor(Math.random() * data.B1.length);
+        word = data.B1[num];
         const partOfSpeech = await fetch(
           `https://api.dictionaryapi.dev/api/v2/entries/en/${word}`
         ).then((response) => response.json());
@@ -54,13 +56,13 @@
           document.getElementById("game").innerHTML += " _";
         }
         document.getElementById("game").innerHTML +=
-          " (" + data.TOEIC[num].word.length + ")";
+          " (" + data.B1[num].length + ")";
         // console.log("B1 :", data.B1.length);
         // console.log("B2 :", data.B2.length);
         // console.log("C1 :", data.C1.length);
         // console.log("C2 :", data.C2.length);
         // console.log("IELTS :", data.IELTS.length);
-        // console.log("TOEIC :", data.TOEIC.length);
+        console.log("B1 :", data.B1.length);
         // console.log("Total :",data.B1.length+data.B2.length+data.C1.length+data.C2.length+data.IELTS.length+data.TOEIC.length);
       };
       const check = () => {
