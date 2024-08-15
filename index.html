@@ -49,7 +49,7 @@
               id="reset"
               onclick="random()"
             >
-              reset
+              skip
             </button>
             <button id="pointShow" class="btn btn-success fw-bold">
               Score :
@@ -100,9 +100,16 @@
         </div>
       </div>
 
+<script>
+  document.getElementById('answer').addEventListener('keypress', function (e) {
+    if (e.key === 'Enter') {
+      check()
+    }
+});
+</script>
+
       <script>
         let word = "";
-
         let point = document.cookie
           .split("; ")
           .find((row) => row.startsWith("current_score="))
