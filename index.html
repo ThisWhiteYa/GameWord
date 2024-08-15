@@ -58,7 +58,7 @@
         border: none;
         background-color: rgba(255, 255, 255, 0);
       }
-      .mobile{
+      .mobile {
         display: none !important;
       }
       body {
@@ -66,12 +66,13 @@
         /* background-color: hwb(216 5% 1% / 0.781); */
       }
       @media only screen and (max-width: 425px) {
-        .mobile{
-        display: flex !important;
-      }
-      #home,#reset{
-        display: none !important;
-      }
+        .mobile {
+          display: flex !important;
+        }
+        #home,
+        #reset {
+          display: none !important;
+        }
       }
     </style>
   </head>
@@ -330,8 +331,8 @@
           "Top Score : " + topScore;
         const home = () => {
           document.getElementById("home").style.display = "none";
-          document.getElementById("answer").setAttribute("disabled","");
-          document.getElementById("check").setAttribute("disabled","");
+          document.getElementById("answer").setAttribute("disabled", "");
+          document.getElementById("check").setAttribute("disabled", "");
           document.getElementById("Level").innerHTML =
             "Please select your level";
           document.getElementById("btn-section").style.display = "inline-block";
@@ -343,26 +344,27 @@
           document.getElementById("translated_area").innerHTML = "";
         };
         const skip = () => {
-          console.log("level :", level);
-
-          switch (level) {
-            case "B1":
-              B1("B1");
-              break;
-            case "B2":
-              B2("B2");
-              break;
-            case "C1":
-              C1("C1");
-            case "C2":
-              C2("C2");
-              break;
-            case "IELTS":
-              IELTS("IELTS");
-              break;
-            case "TOEIC":
-              TOEIC("TOEIC");
-              break;
+          if (!answer.value) {
+            answer.value = "";
+            switch (level) {
+              case "B1":
+                B1("B1");
+                break;
+              case "B2":
+                B2("B2");
+                break;
+              case "C1":
+                C1("C1");
+              case "C2":
+                C2("C2");
+                break;
+              case "IELTS":
+                IELTS("IELTS");
+                break;
+              case "TOEIC":
+                TOEIC("TOEIC");
+                break;
+            }
           }
         };
 
