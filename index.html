@@ -15,6 +15,7 @@
       integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
       crossorigin="anonymous"
     ></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <style>
       .container {
@@ -30,7 +31,7 @@
       .card {
         height: 380px;
       }
-      .display-section{
+      .display-section {
         display: flex;
         flex-direction: column;
         height: 100%;
@@ -157,6 +158,13 @@
           console.log(answer.value);
           console.log("check :", word);
           if (answer.value.trim().toLowerCase() == word.toLowerCase()) {
+            Swal.fire({
+              position: "center",
+              icon: "success",
+              title: "Correct !!",
+              showConfirmButton: false,
+              timer: 1500,
+            });
             point++;
             document.getElementById("pointShow").innerHTML = "Score : " + point;
             answer.value = "";
@@ -165,9 +173,17 @@
             }
             random();
           } else {
+            Swal.fire({
+              icon: "error",
+              title: "Oops...",
+              text: "Dammn i'm sorry ;(",
+              showConfirmButton: false,
+              timer: 1500,
+            });
             point = 0;
             answer.value = "";
             document.getElementById("pointShow").innerHTML = "Score : " + 0;
+            random();
           }
         };
       </script>
