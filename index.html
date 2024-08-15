@@ -24,6 +24,9 @@
       p {
         margin: 0;
       }
+      #reset{
+        display: none;
+      }
     </style>
   </head>
   <body>
@@ -31,10 +34,11 @@
       <div class="container">
         <div class="card p-3">
           <div class="score text-end">
-            <h1 id="pointShow" class="btn btn-success fw-bold">Score :</h1>
-            <h1 id="topScore" class="btn btn-warning text-white fw-bold">
+            <button class="btn btn-secondary fw-bold" id="reset" onclick="random()">reset</button>
+            <button id="pointShow" class="btn btn-success fw-bold">Score :</button>
+            <button id="topScore" class="btn btn-warning text-white fw-bold">
               Top Score :
-            </h1>
+            </button>
           </div>
           <div class="header text-center">
             <h1 id="Level">Level</h1>
@@ -44,7 +48,7 @@
             id="game-section"
             style="height: 50px"
           ></div>
-          <button onclick="random()" id="start" class="btn btn-primary">
+          <button onclick="random()" id="start" class="btn btn-danger">
             Start
           </button>
           <div class="my-3">
@@ -56,10 +60,10 @@
 
           <div class="row gap-2">
             <div class="col">
-              <input type="text" id="answer" class="form-control" />
+              <input type="text" id="answer" class="form-control" for="check" />
             </div>
             <div class="col-2">
-              <button onclick="check()" class="btn btn-success w-100">
+              <button onclick="check()" class="btn btn-primary w-100" id="check">
                 check
               </button>
             </div>
@@ -78,6 +82,7 @@
 
         const random = async () => {
           document.getElementById("start").style.display = "none";
+          document.getElementById("reset").style.display = "inline-block";
           document.getElementById("topScore").innerHTML =
             "Top Score : " + topScore;
           document.getElementById("game-section").innerHTML = "";
@@ -90,7 +95,7 @@
             response.json()
           );
           const num = Math.floor(Math.random() * data.B1.length);
-          word = data.B1[num];
+          word = data.B1[num][0].toLocaleUpperCase() +data.B1[num].slice(1);
           const partOfSpeech = await fetch(
             `https://api.dictionaryapi.dev/api/v2/entries/en/${word}`
           ).then((response) => response.json());
@@ -103,12 +108,21 @@
             partOfSpeech[0].meanings[0].definitions[0].definition;
           document.getElementById("partOfSpeech").innerHTML +=
             partOfSpeech[0].meanings[0].partOfSpeech;
-
+          const hintNum = Math.floor(Math.random() * word.length)
+          const hint = word[hintNum];
+          console.log(word);
+          console.log(hint);
+          console.log(hintNum);
+          
           for (let index = 0; index < word.length; index++) {
-            document.getElementById("game-section").innerHTML +=
+            if (hintNum == index) {
+              document.getElementById("game-section").innerHTML +=
+              `<span class='border-bottom border-primary ms-2 fs-1 text-center' style='width: 70px;'>${hint}</span>`;
+            }else{
+              document.getElementById("game-section").innerHTML +=
               "<span class='border-bottom border-primary ms-2' style='width: 70px;'></span>";
+            }
           }
-          console.log("B1 :", data.B1.length);
         };
         const check = () => {
           console.log(answer.value);
