@@ -163,12 +163,19 @@
           "Top Score : " + topScore;
 
         const skip = () =>{
+          console.log("level :",level);
+          
           switch (level) {
               case 'B1':
                 B1('B1')
                 break;
+              case 'B2':
+                B2('B2')
+                break;
               case 'C1':
                 C1('C1')
+              case 'C2':
+                C2('C2')
                 break;
               case 'IELTS':
                 IELTS('IELTS')
