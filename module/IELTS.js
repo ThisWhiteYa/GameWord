@@ -17,7 +17,9 @@ const IELTS = async (level_select) => {
     .IELTS;
 
   const num = Math.floor(Math.random() * data.length);
-  word = data[num][0].toLocaleUpperCase() + data[num].slice(1);
+  // word = data[num][0].toLocaleUpperCase() + data[num].slice(1);
+  word = data[num].toLocaleUpperCase();
+
 
   const partOfSpeech = await fetch(
     `https://api.dictionaryapi.dev/api/v2/entries/en/${word}`
