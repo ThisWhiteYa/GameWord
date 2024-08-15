@@ -2,9 +2,10 @@
 <html>
   <head> </head>
   <body>
-    <button onclick="random()">Start</button>
+    <button onclick="random()" id="start">Start</button>
     <span id="translate">meaning : </span><span id="translated_area"></span>
-    <h1 id="pointShow"></h1>
+    <h1 id="pointShow">Score :</h1>
+    <h1 id="topScore">Top Score :</h1>
     <h2 id="hint">Definition :</h2>
     <h1 id="partOfSpeech">part of speech :</h1>
     <h1 id="game"></h1>
@@ -13,9 +14,18 @@
     <script>
       let word = "";
       let point = 0;
-      document.getElementById("pointShow").innerHTML = 0;
+      let topScore = 0;
+      document.getElementById("pointShow").innerHTML ="Score : "+ 0;
+      document.getElementById("topScore").innerHTML = "Top Score :"+ topScore;
+
+      const start = document.getElementById("start").innerHTML
 
       const random = async () => {
+        console.log(start);
+        if (start == "start") {
+          document.getElementById("start").innerHTML = reset
+        }
+        document.getElementById("topScore").innerHTML = "Top Score :"+ topScore;
         document.getElementById("game").innerHTML = "";
         document.getElementById("partOfSpeech").innerHTML = "part of speech :";
 
@@ -59,13 +69,16 @@
         console.log("check :", word);
         if (answer.value.toLowerCase() == word.toLowerCase()) {
           point++;
-          document.getElementById("pointShow").innerHTML = point;
+          document.getElementById("pointShow").innerHTML = "Score :"+ point;
           answer.value = "";
+          if (point >= topScore ) {
+            topScore = point
+          }
           random();
         } else {
           point = 0;
           answer.value = "";
-          document.getElementById("pointShow").innerHTML = 0;
+          document.getElementById("pointShow").innerHTML = "Score :"+ 0;
         }
       };
     </script>
