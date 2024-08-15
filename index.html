@@ -15,6 +15,11 @@
       integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
       crossorigin="anonymous"
     ></script>
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="module/B1.js"></script>
     <script src="module/B2.js"></script>
@@ -45,36 +50,42 @@
       #check {
         font-size: 1em;
       }
+      #home{
+        display: none;
+      }
     </style>
   </head>
   <body>
     <body>
       <div class="container">
-        <div class="btc-section mb-3">
-          <button onclick="B1('B1')" id="B1" class="btn btn-secondary">
-            B1
-          </button>
-          <button onclick="B2('B2')" id="B2" class="btn btn-secondary">
-            B2
-          </button>
-          <button onclick="C1('C1')" id="C1" class="btn btn-secondary">
-            C1
-          </button>
-          <button onclick="C2('C2')" id="C2" class="btn btn-secondary">
-            C2
-          </button>
-          <button onclick="IELTS('IELTS')" id="IELTS" class="btn btn-secondary">
-            IELTS
-          </button>
-          <button onclick="TOEIC('TOEIC')" id="TOEIC" class="btn btn-secondary">
-            TOEIC
-          </button>
-        </div>  
-        <div class="card p-4">
+        <a
+          class="d-inline-block"
+          href="https://www.facebook.com/NantakonWhite"
+          target="_blank"
+          style="text-decoration: none; width: fit-content"
+        >
+          <div
+            class="title bg-primary py-1 px-2 mb-2 rounded-3 text-white align-content-center"
+            style="width: fit-content"
+          >
+            <span> Create by <b>White</b> </span>
+            <i class="bx bxl-facebook-circle"></i>
+          </div>
+        </a>
+
+        <div class="card p-5 rounded-4">
           <div class="score text-end">
             <button
               class="btn btn-secondary fw-bold"
+              id="home"
+              onclick="home()"
+            >
+              Home
+            </button>
+            <button
+              class="btn fw-bold text-white"
               id="reset"
+              style="background-color: #ff6f00"
               onclick="skip()"
             >
               skip
@@ -87,15 +98,65 @@
             </button>
           </div>
           <div class="header text-center my-3">
-            <h1 id="Level">Please select you're level</h1>
+            <h1 id="Level">Please select your level</h1>
+            <div class="btn-section mb-3" id="btn-section">
+              <button
+                onclick="B1('B1')"
+                id="B1"
+                style="background-color: #ef5350"
+                class="btn text-white"
+              >
+                B1
+              </button>
+              <button
+                onclick="B2('B2')"
+                id="B2"
+                style="background-color: #ec407a"
+                class="btn text-white"
+              >
+                B2
+              </button>
+              <button
+                onclick="C1('C1')"
+                id="C1"
+                style="background-color: #ab47bc"
+                class="btn text-white"
+              >
+                C1
+              </button>
+              <button
+                onclick="C2('C2')"
+                id="C2"
+                style="background-color: #7e57c2"
+                class="btn text-white"
+              >
+                C2
+              </button>
+              <button
+                onclick="IELTS('IELTS')"
+                id="IELTS"
+                class="btn text-white"
+                style="background-color: #ffa726"
+              >
+                IELTS
+              </button>
+              <button
+                onclick="TOEIC('TOEIC')"
+                id="TOEIC"
+                class="btn text-white"
+                style="background-color: #ff7043"
+              >
+                TOEIC
+              </button>
+            </div>
           </div>
+
           <div
             class="game-section d-flex justify-content-center my-3"
             id="game-section"
             style="height: 50px"
           ></div>
           <div class="display-section">
-           
             <div class="my-3">
               <span id="translate">meaning : </span
               ><span id="translated_area"></span>
@@ -103,13 +164,14 @@
               <p id="partOfSpeech">part of speech :</p>
             </div>
 
-            <div class="row gap-2">
+            <div class="row gap-2 bg-primary px-3 py-2 rounded-3">
               <div class="col">
                 <input
                   type="text"
                   id="answer"
                   class="form-control"
                   for="check"
+                  placeholder="Write Your Answer ...."
                   disabled
                 />
               </div>
@@ -131,7 +193,7 @@
 
       <script>
         console.log("ฮั่นแหน่ จะทำอะไร");
-        
+
         document
           .getElementById("answer")
           .addEventListener("keypress", function (e) {
@@ -140,9 +202,8 @@
             }
           });
       </script>
-
       <script>
-        let level = ''
+        let level = "";
         let word = "";
         let point = document.cookie
           .split("; ")
@@ -163,39 +224,46 @@
         document.getElementById("pointShow").innerHTML = "Score : " + point;
         document.getElementById("topScore").innerHTML =
           "Top Score : " + topScore;
+        const home = () => {
+          document.getElementById("btn-section").style.display = "inline-block";
+          document.getElementById("reset").style.display = "none";
+          document.getElementById("game-section").innerHTML = "";
+          document.getElementById("hint").innerHTML = "Definition :";
+          document.getElementById("partOfSpeech").innerHTML = "part of speech :";
+          document.getElementById("translated_area").innerHTML = "";
+        };
+        const skip = () => {
+          console.log("level :", level);
 
-        const skip = () =>{
-          console.log("level :",level);
-          
           switch (level) {
-              case 'B1':
-                B1('B1')
-                break;
-              case 'B2':
-                B2('B2')
-                break;
-              case 'C1':
-                C1('C1')
-              case 'C2':
-                C2('C2')
-                break;
-              case 'IELTS':
-                IELTS('IELTS')
-                break;
-              case 'TOEIC':
-                TOEIC('TOEIC')
-                break;
-            }
-        }
-        
+            case "B1":
+              B1("B1");
+              break;
+            case "B2":
+              B2("B2");
+              break;
+            case "C1":
+              C1("C1");
+            case "C2":
+              C2("C2");
+              break;
+            case "IELTS":
+              IELTS("IELTS");
+              break;
+            case "TOEIC":
+              TOEIC("TOEIC");
+              break;
+          }
+        };
+
         const check = () => {
-          console.log("Your answer :",answer.value);
+          console.log("Your answer :", answer.value);
           console.log("correct answer :", word);
           if (answer.value.trim().toLowerCase() == word.toLowerCase()) {
             Swal.fire({
               position: "center",
               icon: "success",
-              title: "Correct !!",
+              title: "เก่งมาก !!",
               showConfirmButton: false,
               timer: 1500,
             });
@@ -208,53 +276,53 @@
             }
             document.cookie = `current_score=${point}`;
             switch (level) {
-              case 'B1':
-                B1('B1')
+              case "B1":
+                B1("B1");
                 break;
-              case 'B2':
-                B2('B2')
+              case "B2":
+                B2("B2");
                 break;
-              case 'C1':
-                C1('C1')
-              case 'C2':
-                C2('C2')
+              case "C1":
+                C1("C1");
+              case "C2":
+                C2("C2");
                 break;
-              case 'IELTS':
-                IELTS('IELTS')
+              case "IELTS":
+                IELTS("IELTS");
                 break;
-              case 'TOEIC':
-                TOEIC('TOEIC')
+              case "TOEIC":
+                TOEIC("TOEIC");
                 break;
             }
           } else {
             Swal.fire({
               icon: "error",
-              title: "Oops...",
-              text: "Dammn i'm sorry ;(",
+              title: "พยายามได้ดี อย่าท้อลุยต่ออ !!",
+              html: `" คำตอบที่ถูกคือ <b class="text-success"> ${word}</b> "`,
               showConfirmButton: false,
-              timer: 1500,
+              timer: 2000,
             });
             point = 0;
             answer.value = "";
             document.getElementById("pointShow").innerHTML = "Score : " + 0;
             document.cookie = `current_score=${point}`;
             switch (level) {
-              case 'B1':
-                B1('B1')
+              case "B1":
+                B1("B1");
                 break;
-              case 'B2':
-                B2('B2')
+              case "B2":
+                B2("B2");
                 break;
-              case 'C1':
-                C1('C1')
-              case 'C2':
-                C2('C2')
+              case "C1":
+                C1("C1");
+              case "C2":
+                C2("C2");
                 break;
-              case 'IELTS':
-                IELTS('IELTS')
+              case "IELTS":
+                IELTS("IELTS");
                 break;
-              case 'TOEIC':
-                TOEIC('TOEIC')
+              case "TOEIC":
+                TOEIC("TOEIC");
                 break;
             }
           }

@@ -2,7 +2,8 @@ const C2 = async (level_select) => {
     level = level_select
 
     document.getElementById("Level").innerHTML = 'level : C2';
-
+    document.getElementById("btn-section").style.display = 'none'
+    document.getElementById("home").style.display = "inline-block";
     document.getElementById("answer").removeAttribute("disabled");
     document.getElementById("check").removeAttribute("disabled");
     document.getElementById("reset").style.display = "inline-block";
