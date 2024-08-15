@@ -330,6 +330,8 @@
           "Top Score : " + topScore;
         const home = () => {
           document.getElementById("home").style.display = "none";
+          document.getElementById("answer").setAttribute("disabled","");
+          document.getElementById("check").setAttribute("disabled","");
           document.getElementById("Level").innerHTML =
             "Please select your level";
           document.getElementById("btn-section").style.display = "inline-block";
