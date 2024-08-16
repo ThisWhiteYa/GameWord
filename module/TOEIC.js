@@ -2,6 +2,7 @@ const TOEIC = async (level_select) => {
     level = level_select
 
     document.getElementById("Level").innerHTML = 'level : TOEIC';
+    document.getElementById("game-section").style.display = "flex";
     document.getElementById("btn-section").style.display = 'none'
     document.getElementById("home").style.display = "inline-block";
     document.getElementById("answer").removeAttribute("disabled");

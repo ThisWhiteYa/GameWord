@@ -1,6 +1,7 @@
 const IELTS = async (level_select) => {
   level = level_select;
   document.getElementById("btn-section").style.display = 'none'
+  document.getElementById("game-section").style.display = "flex";
   document.getElementById("Level").innerHTML = "level : IELTS";
   document.getElementById("answer").removeAttribute("disabled");
   document.getElementById("answer").removeAttribute("disabled");

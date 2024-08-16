@@ -5,6 +5,7 @@ const B1 = async (level_select) => {
   document.getElementById("btn-section").style.display = "none";
   document.getElementById("answer").removeAttribute("disabled");
   document.getElementById("check").removeAttribute("disabled");
+  document.getElementById("game-section").style.display = "flex";
   document.getElementById("reset").style.display = "inline-block";
   document.getElementById("home").style.display = "inline-block";
   document.getElementById("topScore").innerHTML = "Top Score : " + topScore;

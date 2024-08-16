@@ -3,6 +3,7 @@ const B2 = async (level_select) => {
   document.getElementById("btn-section").style.display = "none";
   document.getElementById("Level").innerHTML = "level : B2";
   document.getElementById("home").style.display = "inline-block";
+  document.getElementById("game-section").style.display = "flex";
   document.getElementById("answer").removeAttribute("disabled");
   document.getElementById("check").removeAttribute("disabled");
   document.getElementById("reset").style.display = "inline-block";

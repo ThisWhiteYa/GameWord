@@ -41,6 +41,9 @@
       .card {
         height: fit-content;
       }
+      #game-section{
+        display: none;
+      }
       .display-section {
         display: flex;
         flex-direction: column;
@@ -109,6 +112,8 @@
                   ขณะนั้นหากต้องการบันทึกคะแนนตัวเองให้เลือกเล่น browser
                   เดิมเสมอ
                 </p>
+                <p><b class="text-danger">***คำเตือน***</b></p>
+                <p>ในกรณีที่เล่นในโทรศัพท์ถ้าต้องการให้คะแนนคงอยู่ห้ามกดปิด browser</p>
               </div>
             </div>
             <div class="modal-footer">
@@ -175,12 +180,12 @@
           </div>
           <div class="header text-center my-3">
             <h1 id="Level">Please select your level</h1>
-            <div class="btn-section mb-3" id="btn-section">
+            <div class="btn-section mb-3 row gap-2" id="btn-section">
               <button
                 onclick="B1('B1')"
                 id="B1"
                 style="background-color: #ef5350"
-                class="btn text-white"
+                class="btn text-white col"
               >
                 B1
               </button>
@@ -188,7 +193,7 @@
                 onclick="B2('B2')"
                 id="B2"
                 style="background-color: #ec407a"
-                class="btn text-white"
+                class="btn text-white col"
               >
                 B2
               </button>
@@ -196,7 +201,7 @@
                 onclick="C1('C1')"
                 id="C1"
                 style="background-color: #ab47bc"
-                class="btn text-white"
+                class="btn text-white col"
               >
                 C1
               </button>
@@ -204,14 +209,14 @@
                 onclick="C2('C2')"
                 id="C2"
                 style="background-color: #7e57c2"
-                class="btn text-white"
+                class="btn text-white col"
               >
                 C2
               </button>
               <button
                 onclick="IELTS('IELTS')"
                 id="IELTS"
-                class="btn text-white"
+                class="btn text-white col"
                 style="background-color: #ffa726"
               >
                 IELTS
@@ -219,7 +224,7 @@
               <button
                 onclick="TOEIC('TOEIC')"
                 id="TOEIC"
-                class="btn text-white"
+                class="btn text-white col"
                 style="background-color: #ff7043"
               >
                 TOEIC
@@ -228,7 +233,7 @@
           </div>
 
           <label
-            class="game-section d-flex justify-content-center my-3"
+            class="game-section justify-content-center my-3"
             id="game-section"
             for="answer"
             style="height: 50px"
