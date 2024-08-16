@@ -50,6 +50,10 @@
         height: 100%;
         justify-content: end;
       }
+      .btn-section{
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+      }
       #check {
         font-size: 1em;
       }
@@ -180,7 +184,7 @@
           </div>
           <div class="header text-center my-3">
             <h1 id="Level">Please select your level</h1>
-            <div class="btn-section mb-3 row gap-2" id="btn-section">
+            <div class="btn-section row gap-2" id="btn-section">
               <button
                 onclick="B1('B1')"
                 id="B1"
@@ -335,13 +339,16 @@
         document.getElementById("pointShow").innerHTML = "Score : " + point;
         document.getElementById("topScore").innerHTML =
           "Top Score : " + topScore;
+
+        // Home
         const home = () => {
           document.getElementById("home").style.display = "none";
+          document.getElementById("game-section").style.display = "none";
           document.getElementById("answer").setAttribute("disabled", "");
           document.getElementById("check").setAttribute("disabled", "");
           document.getElementById("Level").innerHTML =
             "Please select your level";
-          document.getElementById("btn-section").style.display = "inline-block";
+          document.getElementById("btn-section").style.display = "grid";
           document.getElementById("reset").style.display = "none";
           document.getElementById("game-section").innerHTML = "";
           document.getElementById("hint").innerHTML = "Definition :";
