@@ -438,9 +438,9 @@
               answer.value = "";
               if (point >= topScore) {
                 topScore = point;
-                document.cookie = `top_score=${topScore}`;
+                document.cookie = `top_score=${topScore}; expires=Thu, 18 Dec 2050 12:00:00 UTC; path=/`;
               }
-              document.cookie = `current_score=${point}`;
+              document.cookie = `current_score=${point}; expires=Thu, 18 Dec 2050 12:00:00 UTC; path=/`;
               switch (level) {
                 case "B1":
                   B1("B1");
